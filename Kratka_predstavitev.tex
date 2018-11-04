@@ -1,0 +1,45 @@
+\documentclass[a4paper]{article}
+\usepackage[slovene]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[pdftex]{graphicx}
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{enumerate}
+\usepackage{mathpazo} 
+\usepackage{blindtext}
+
+\title{Predpisana drevesa z najmanjšim/največjim Wiener indeksom}
+\author{Klemen Hovnik\\ Matija Gubanc Hančič \\ Jan Rudof}
+
+\begin{document}
+\maketitle
+
+\section{Uvod}
+
+Naj bo $G=(V(G),  E(G))$ enostaven povezan neusmerjen graf. $Wienerjev$ $ indeks$, oziroma $Wienerjevo$  $"stevilo$ $ W(G)$, je definiran kot
+\begin{equation}
+W(G) = \frac{1}{2}\sum_{u\in V(g)}\sum_{v\in V(g)} d_G(u,v).
+\end{equation}
+Tukaj označimo z $d_G(u,v)$ razdaljo med vozliščem $u$ in $v$ v grafu $G$. \\
+\\
+Naša naloga je, da analiziramo lastnosti dreves z določenim številom vozlišč in 
+fiksno maksimalno stopnjo vozlišč, ki imajo najmanjši Wienerjev indeks. Podobno nas zanimajo tudi lastnosti dreves na določenem številu vozlišč s \\
+fiksnim premerom, ki imajo največji možni Wienerjev indeks.
+
+\section{Opis dela}
+
+Za izvedbo projekta smo si izbrali programski jezik $Sage$, saj ta že vsebuje orodja za delo z grafi, prav tako pa ima tudi generator dreves 
+in že vgrajeno funkcijo za izračun Wienerjevega indeksa. Najprej smo se lotili izračuna Wienerjevih indeksov na preprostih grafih z malo vozlišči, 
+da vidimo kako naj bi ta struktura izgledala v splošnem.
+
+\section{Načrt za nadaljnje delo}
+
+Ideja je, da bi glede na dobljene rezultate na grafih z manj vozlišči, lahko predvidevali kako naj bi ta drevesa izgledala v splošnem.
+Poskusili bomo z genetskimi algoritmi križati drevesa, za katera menimo, da bi lahko dosegla najmanjši oziroma največji možni
+Wienerjev indeks.
+
+
+
+
+\end{document}
