@@ -9,7 +9,7 @@
 \usepackage{mathpazo} 
 \usepackage{blindtext}
 
-\title{Predpisana drevesa z najmanjšim/največjim Wiener indeksom}
+\title{Predpisana drevesa z najmanjšim/največjim Wienerjevim indeksom}
 \author{Klemen Hovnik\\ Matija Gubanc Hančič \\ Jan Rudof}
 
 \begin{document}
@@ -17,27 +17,56 @@
 
 \section{Uvod}
 
-Naj bo $G=(V(G),  E(G))$ enostaven povezan neusmerjen graf. $Wienerjev$ $ indeks$, oziroma $Wienerjevo$  $"stevilo$ $ W(G)$, je definiran kot
+Naj bo $G=(V(G),  E(G))$ enostaven povezan neusmerjen graf. $Wienerjev$ $ indeks$ (oziroma $Wienerjevo$  $"stevilo$ $ W(G)$) je definiran kot
 \begin{equation}
 W(G) = \frac{1}{2}\sum_{u\in V(g)}\sum_{v\in V(g)} d_G(u,v).
 \end{equation}
-Tukaj označimo z $d_G(u,v)$ razdaljo med vozliščem $u$ in $v$ v grafu $G$. \\
+Tukaj označimo z $d_G(u,v)$ razdaljo med vozliščem $u$ in $v$ v grafu $G$. 
+\\
 \\
 Naša naloga je, da analiziramo lastnosti dreves z določenim številom vozlišč in 
-fiksno maksimalno stopnjo vozlišč, ki imajo najmanjši Wienerjev indeks. Podobno nas zanimajo tudi lastnosti dreves na določenem številu vozlišč s \\
-fiksnim premerom, ki imajo največji možni Wienerjev indeks.
+fiksno maksimalno stopnjo vozlišč, ki imajo najmanjši Wienerjev indeks. Podobno nas zanimajo tudi lastnosti 
+dreves na določenem številu vozlišč s fiksnim premerom, ki imajo največji možni Wienerjev indeks.
 
 \section{Opis dela}
 
-Za izvedbo projekta smo si izbrali programski jezik $Sage$, saj ta že vsebuje orodja za delo z grafi, prav tako pa ima tudi generator dreves 
-in že vgrajeno funkcijo za izračun Wienerjevega indeksa. Najprej smo se lotili izračuna Wienerjevih indeksov na preprostih grafih z malo vozlišči, 
-da vidimo kako naj bi ta struktura izgledala v splošnem.
+Za izvedbo projekta smo si izbrali programski jezik $Sage$, saj ta že vsebuje orodja za delo z grafi, prav tako 
+pa ima tudi generator dreves in že vgrajeno funkcijo za izračun Wienerjevega indeksa. Najprej smo se lotili 
+izračuna Wienerjevih indeksov na preprostih grafih z malo vozlišči, da vidimo kako naj bi ta struktura grafov 
+z minimalnimi oziroma maksimalnimi indeksi izgledala v splošnem. 
+\\
+\\
+Za iskanje najmanjših Wienerjevih indeksov pri določenem številu vozlišč in pri fiksni maksimalni stopnji, 
+smo naredili slovar slovarjev, kamor smo shranjevali optimalno dobljena drevesa. Podobno smo naredili 
+slovar slovarjev za drevesa z maksimalnim Wienerjevim indeksom pri določenem številu vozlišč in pri 
+fiksnem premeru grafa. Seveda smo to naredili le za grafe z malo vozlišči, saj se kaj kmalu izkaže, da je 
+naš algoritem za izračun indeksov časovno prepotraten.
+\\
+\\
+Tako smo si pripravili vse potrebno za analizo strukture dreves, ki nam bo pomagala kasneje pri iskanju 
+indeksov večjih grafov. Ideja je, da bi glede na dobljene rezultate na grafih z manj vozlišči, lahko predvidevali
+ kako naj bi ta drevesa izgledala v splošnem.
 
 \section{Načrt za nadaljnje delo}
 
-Ideja je, da bi glede na dobljene rezultate na grafih z manj vozlišči, lahko predvidevali kako naj bi ta drevesa izgledala v splošnem.
-Poskusili bomo z genetskimi algoritmi križati drevesa, za katera menimo, da bi lahko dosegla najmanjši oziroma največji možni
-Wienerjev indeks.
+Glede nadaljnjega dela smo prišli do dveh idej, kako bi lahko iskali optimalne Wienerjeve indekse pri večjem številu vozlišč:
+\\
+\\
+Prva ideja je, da bi s pomočjo $dinami"cnega$ $programiranja$ in že znanih grafov, ki imajo optimalne indekse,
+iskali optimalne Wienerjeve indekse še za grafe z večjim številom vozlišč. Že znane grafe bi tako gradili do grafov 
+z željenim številom vozlišč in željeno maksimalno stopnjo oziroma premerom. Gradili bi jih tako, da bi že znanim 
+grafom dodajali povezave do željenege števila vozlišč, pri tem pa pazili, da ohranjamo željeno maksimalno stopnjo 
+oziroma premer. Seveda, bi nas pri gradnji novih grafov zanimali le tisti z minimalnim oziroma maksimalnim Wienerjevim indeksom.
+\\
+\\
+Druga ideja je, da bi si pomagali z $genetskim$ $algoritmom$.  Za začetno populacijo dreves, bi vzeli optimalna drevesa,
+ki smo jih predhodno našli z našim zamudnim algoritmom. Potem pa bi na vsakem nadaljnjem koraku iz teh dreves 
+generirali novo populacijo dreves. Pri teh bomo izločili najslabša, ostala pa bomo probali križati in generirati nova drevesa.
+Pri tem načinu se bo število vozlišč ohranilo, paziti pa bomo morali, da se bo ohranjala tudi maksimalna stopnja oziroma premer.
+\\
+\\
+Lotili se bomo obeh idej, vendar bomo izvedli le tisto, ki bo imela bolj zanesljive rezultate in bo časovno manj zahtevna.
+
 
 
 
