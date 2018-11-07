@@ -49,20 +49,30 @@ kako naj bi ta drevesa izgledala v splošnem.
 
 \section{Načrt za nadaljnje delo}
 
-Glede nadaljnjega dela smo prišli do dveh idej, kako bi lahko iskali optimalne Wienerjeve indekse pri večjem številu vozlišč:
+Naslednji korak našega dela bo konstrukcija $genetskega$ $algoritma$.
 \\
 \\
-Prva ideja je, da bi s pomočjo $dinami"cnega$ $programiranja$ in že znanih grafov, ki imajo optimalne indekse,
-iskali optimalne Wienerjeve indekse še za grafe z večjim številom vozlišč. Že znane grafe bi tako gradili do grafov 
-z željenim številom vozlišč in željeno maksimalno stopnjo oziroma premerom. Gradili bi jih tako, da bi že znanim 
-grafom dodajali povezave do željenege števila vozlišč, pri tem pa pazili, da ohranjamo željeno maksimalno stopnjo 
-oziroma premer. Seveda bi nas pri gradnji novih grafov zanimali le tisti z minimalnim oziroma maksimalnim Wienerjevim indeksom.
+$Genetski$ $algoritem$ je metahevristika, navdihnjena s strani procesov naravne selekcije in spada v razred $razvojnih$
+$algoritmov$. Uporablja se za generiranje kvalitetnih rešitev v optimizaciji, ki temeljijo na operatorjih kot so mutacija, križanje
+in selekcija.  
 \\
 \\
-Druga ideja je, da bi si pomagali z $genetskim$ $algoritmom$.  Za začetno populacijo dreves bi vzeli optimalna drevesa,
-ki smo jih predhodno našli z našim zamudnim algoritmom, potem pa bi na vsakem nadaljnjem koraku iz teh dreves 
-generirali novo populacijo dreves. Pri teh bomo izločili najslabša, ostala pa bomo poskusili križati in generirati nova drevesa.
-Pri tem načinu se bo število vozlišč ohranilo, paziti pa bomo morali, da se bo ohranjala tudi maksimalna stopnja oziroma premer.
+V genetskem algoritmu se uporabi množica kandidatov za rešitev, ki jih nato razvijamo do optimalne rešitve. Vsak kandidat
+ima določene lastnosti, katere lahko spremenimo oziroma lahko mutirajo. Evolucija rešitev se ponavadi začne na naključni izbiri kandidatov,
+katere potem s pomočjo iteracije razvijamo. Na vsakem iterativnem koraku se potem oceni primernost novih kandidatov za optimizacijski
+problem. Najboljše kandidate potem uporabimo za naslednji korak iteracije in tako dalje. Na koncu se algoritem zaključi,
+ko doseže maksimalno število iteracijskih korakov oziroma, ko dobi najboljši približek optimalni rešitvi.
+\\
+\\
+Naša začetna množica kandidatov bodo optimalna drevesa, ki smo jih dobili z našim prvim enostavnim algoritmom. 
+Nato bomo ustvarili genetski algoritem, ki bo iz teh začetnih podatkov generiral nova optimalna drevesa. Ta postopek bomo
+nadaljevali (in pri tem selekcionirali iz novo nastalih dreves le najboljše za naslednje korake), dokler ne bomo prišli do optimalnih 
+dreves za določeno število vozlišč. Pri tem bomo morali paziti, da se bo ohranjala maksimalna stopnja vozlišč, 
+oziroma v drugem primeru, premer. 
+\\
+\\
+Na koncu bomo primerjali algoritma in pogledali, kdaj se ustavi naš enostavni algoritem za iskanje grafov z max/min Wienerjevim indeksom
+oziroma za katero število vozlišč je genetski algoritem še učinkovit.
 
 
 
