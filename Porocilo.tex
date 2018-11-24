@@ -126,8 +126,8 @@ pa ima tudi generator dreves in že vgrajeno funkcijo za izračun Wienerjevega i
 
 Najprej smo se lotili izračuna Wienerjevih indeksov na preprostih grafih z malo vozlišči, da vidimo, kako naj bi ta struktura grafov 
 z minimalnimi oziroma maksimalnimi indeksi izgledala v splošnem. 
-
-\subsection{Maksimalen Wiener index na drevesih s fiksnim polmerom}
+\subsection{Enostaven algoritem}
+\subsubsection{Maksimalen Wiener index na drevesih s fiksnim polmerom}
 \
 \\
 Definirali funkcijo $drevesa(n)$, ki nam izpiše seznam vseh dreves s številom vozlišč $n$. Potem smo to funkcijo uporabili v 
@@ -140,32 +140,25 @@ Sestavili smo funkcijo $max\_Weinerindex(n,N)$, kjer je $N$ fiksen premer. Ta fu
 \end{figure*}
 \pagebreak
 
-\subsection{Maksimalen Wiener index na drevesih s fiksnim polmerom}
+
+\subsubsection{Minimalen Wiener index na drevesih s fiksno stonjo}
 \
 \\
-Definirali smo funkcijo $fiksna\_stopnja$, ki nam
+Za iskanje najmanjših Wienerjevih indeksov pri določenem številu vozlišč $n$ in pri fiksni maksimalni stopnji  $m$
+smo definirali funkcijo $fiksna\_stopnja$,  ki nam je iz seznama, ki ga vrne funkcija $drevesa(n)$ izpisala drevesa z maksimalno stopnjo $m$. Izmed teh optimalnih dreves pa smo potem s funkcijo $.wiener\_index()$ izračunali najmanjši Wiener index, ter drevo s tem indeksom tudi izpisali.
 
-
-
-
-
-
-
-Za iskanje najmanjših Wienerjevih indeksov pri določenem številu vozlišč in pri fiksni maksimalni stopnji 
-smo naredili slovar slovarjev, kamor smo shranjevali optimalno dobljena drevesa. Podobno smo naredili 
-slovar slovarjev za drevesa z maksimalnim Wienerjevim indeksom pri določenem številu vozlišč in pri 
-fiksnem premeru grafa. Seveda smo to naredili le za grafe z malo vozlišči, saj se kaj kmalu izkaže, da je 
-naš algoritem za izračun indeksov časovno prepotraten.
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika2}
+\end{figure*}
+\pagebreak
+\
 \\
-\\
-Tako smo si pripravili vse potrebno za analizo strukture dreves, ki nam bo pomagala kasneje pri iskanju 
-indeksov večjih grafov. Ideja je, da bi glede na dobljene rezultate na grafih z manj vozlišči lahko predvidevali,
-kako naj bi ta drevesa izgledala v splošnem.
+Hitro smo prišli do ugotovitve, da je naš algoritem za izračun indeksov časovno prepotraten. Zato smo se problema iskanja Wienerjevih indeksov lotili na drugačen način. In sicer z $genetskim algoritmom$ katerega ideja je, da izmed dreves na manjših vozliščih gradimo večja drevesa
 
-\section{Načrt za nadaljnje delo}
 
-Naslednji korak našega dela bo konstrukcija $genetskega$ $algoritma$.
-\\
+\subsection{Genetski algoritem}
+\
 \\
 $Genetski$ $algoritem$ je metahevristika, navdihnjena s strani procesov naravne selekcije in spada v razred $razvojnih$
 $algoritmov$. Uporablja se za generiranje kvalitetnih rešitev v optimizaciji, ki temeljijo na operatorjih kot so mutacija, križanje
