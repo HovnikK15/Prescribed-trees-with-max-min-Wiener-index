@@ -182,8 +182,22 @@ oziroma v drugem primeru, premer.
 subsubsection{Genetski algoritem za drevesa s fiksnim premerom}
 \
 \\
-Pri tem algoritmu najprej definiramo funkcijo, ki zgenerira graf na $st_vozlisc$ vozliščih s fiksnim premerom $premer$. To funkcijo nato uporabimo, da ustvarimo začetno populacijo osebkov s podobnimi lastnostmi. Ta funkcija nam vrne seznam slovarjev grafov. Potem definiramo še funkcijo $fitness$, ki preveri seznam dreves in nam vrne optimalno drevo glede na neko iskano optimalno lastnost. V primeru iskanja drevesa z največjim Wienerjevim indeksom pri fiksnem premeru je to drevo, ki bo iz te množice imelo največji Wienerjev index.
-Naslednja funkcija, ki jo definiramo je funkcija $mutate$. S to funkcijo v algoritem vpeljemo še možnost mutacije, kjer se eden od listov drevesa naključno prestavi na neko drugo mesto. Predzadnja funkcija, ki smo jo napisali, je funkcija $crossover$. Ta iz dveh podanih dreves s križanjem sestavi dve novi drevesi. Zadnja funkcija, ki smo jo spisali, je funkcija $nova_generacija$. Parametra, ki ju podamo tej funkciji sta $zacetna_generacija$ in $verjetnost$. S pomočjo te funkcije iz začetne generacije z mutacijami in križanjem dreves iz začetne populacije ustvarimo novo generacijo. Na koncu nam preostane še, da vse, kar smo do sedaj spisali uporabimo v simulaciji, ki ustvari začetno populacijo in nato $stevilo_generacij$-krat iz prejšnje generacije ustvari novo, kar bi v teoriji po dovolj velikem številu korakov moralo pripeljati do zelo dobrega približka optimalne rešitve.
+Pri tem algoritmu najprej definiramo funkcijo, ki zgenerira graf na $st_vozlisc$ vozliščih s fiksnim premerom $premer$. 
+To funkcijo nato uporabimo, da ustvarimo začetno populacijo osebkov s podobnimi lastnostmi. 
+Ta funkcija nam vrne seznam slovarjev grafov. Potem definiramo še funkcijo $fitness$, 
+ki preveri seznam dreves in nam vrne optimalno drevo glede na neko iskano optimalno lastnost. 
+V primeru iskanja drevesa z največjim Wienerjevim indeksom pri fiksnem premeru je to drevo, 
+ki bo iz te množice imelo največji Wienerjev index.
+Naslednja funkcija, ki jo definiramo je funkcija $mutate$.
+S to funkcijo v algoritem vpeljemo še možnost mutacije, kjer se eden od listov drevesa naključno prestavi na neko drugo mesto.
+Predzadnja funkcija, ki smo jo napisali, je funkcija $crossover$. 
+Ta iz dveh podanih dreves s križanjem sestavi dve novi drevesi. 
+Zadnja funkcija, ki smo jo spisali, je funkcija $nova_generacija$. 
+Parametra, ki ju podamo tej funkciji sta $zacetna_generacija$ in $verjetnost$. 
+S pomočjo te funkcije iz začetne generacije z mutacijami in križanjem dreves iz začetne populacije ustvarimo novo generacijo.
+Na koncu nam preostane še, da vse, kar smo do sedaj spisali uporabimo v simulaciji,
+ki ustvari začetno populacijo in nato $stevilo_generacij$-krat iz prejšnje generacije ustvari novo,
+kar bi v teoriji po dovolj velikem številu korakov moralo pripeljati do zelo dobrega približka optimalne rešitve.
 \\
 \\
 Na koncu bomo primerjali algoritma in pogledali, kdaj se ustavi naš enostavni algoritem za iskanje grafov z max/min Wienerjevim indeksom
