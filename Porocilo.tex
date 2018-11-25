@@ -179,10 +179,13 @@ dreves za določeno število vozlišč. Pri tem bomo morali paziti, da se bo ohr
 oziroma v drugem primeru, premer.
 \\
 \\
-subsubsection{Genetski algoritem za drevesa s fiksnim premerom}
+\subsubsection{Genetski algoritem za drevesa s fiksnim premerom}
 \
 \\
-Pri tem algoritmu najprej definiramo funkcijo, ki zgenerira graf na $st_vozlisc$ vozliščih s fiksnim premerom $premer$. 
+Pri tem algoritmu najprej definiramo funkcijo, ki zgenerira graf na $st\_vozlisc$ vozliščih s fiksnim premerom $premer$.
+
+
+
 To funkcijo nato uporabimo, da ustvarimo začetno populacijo osebkov s podobnimi lastnostmi. 
 Ta funkcija nam vrne seznam slovarjev grafov. Potem definiramo še funkcijo $fitness$, 
 ki preveri seznam dreves in nam vrne optimalno drevo glede na neko iskano optimalno lastnost. 
@@ -192,12 +195,19 @@ Naslednja funkcija, ki jo definiramo je funkcija $mutate$.
 S to funkcijo v algoritem vpeljemo še možnost mutacije, kjer se eden od listov drevesa naključno prestavi na neko drugo mesto.
 Predzadnja funkcija, ki smo jo napisali, je funkcija $crossover$. 
 Ta iz dveh podanih dreves s križanjem sestavi dve novi drevesi. 
-Zadnja funkcija, ki smo jo spisali, je funkcija $nova_generacija$. 
-Parametra, ki ju podamo tej funkciji sta $zacetna_generacija$ in $verjetnost$. 
-S pomočjo te funkcije iz začetne generacije z mutacijami in križanjem dreves iz začetne populacije ustvarimo novo generacijo.
+Zadnja funkcija, ki smo jo spisali, je funkcija $nova\_generacija$. 
+Parametra, ki ju podamo tej funkciji sta $zacetna\_generacija$ in $verjetnost$. 
+S pomočjo te funkcije iz začetne generacije z mutacijami in križanjem dreves ustvarimo novo generacijo.
 Na koncu nam preostane še, da vse, kar smo do sedaj spisali uporabimo v simulaciji,
-ki ustvari začetno populacijo in nato $stevilo_generacij$-krat iz prejšnje generacije ustvari novo,
+ki ustvari začetno populacijo in nato $stevilo\_generacij$-krat iz prejšnje generacije ustvari novo,
 kar bi v teoriji po dovolj velikem številu korakov moralo pripeljati do zelo dobrega približka optimalne rešitve.
+\\
+\\
+\subsubsection{Genetski algoritem za drevesa z največjo stopnjo}
+\
+\\
+Pri drevesih z največjo stopnjo vozlišča je princip precej podoben tistemu, ki ga uporabimo pri drevesih s fiksnim premerom.
+Uporabljene funkcije so podobne, razlikujejo se po tem, da se ne osredotočajo na največji premer, temveč preverjajo največjo stopnjo.
 \\
 \\
 Na koncu bomo primerjali algoritma in pogledali, kdaj se ustavi naš enostavni algoritem za iskanje grafov z max/min Wienerjevim indeksom
