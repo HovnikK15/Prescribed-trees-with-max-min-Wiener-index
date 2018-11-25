@@ -1,4 +1,3 @@
-
 \documentclass[12pt,a4paper]{amsart}
 % ukazi za delo s slovenscino -- izberi kodiranje, ki ti ustreza
 \usepackage[slovene]{babel}
@@ -179,40 +178,95 @@ dreves za določeno število vozlišč. Pri tem bomo morali paziti, da se bo ohr
 oziroma v drugem primeru, premer.
 \\
 \\
-\subsubsection{Genetski algoritem za drevesa s fiksnim premerom}
+\subsubsection{Genetski algoritem za drevesa z največjo stopnjo}
 \
 \\
-Pri tem algoritmu najprej definiramo funkcijo, ki zgenerira graf na $st\_vozlisc$ vozliščih s fiksnim premerom $premer$.
+Pri tem algoritmu najprej definiramo funkcijo, ki zgenerira graf na $st\_vozlisc$ vozliščih z največjo stopnjo $max_stopnja$.
+Pri preučevanju karakteristik optimalnih grafov smo ugotovili, da imajo najmanjše Wienerjeve indekse ravno zvezde. Zato 
+smo funkcijo spisali tako, da najprej vzame graf zvezde in nato naključno dodaja povezave, medtem ko pazi, da katero vozlišče
+ne bi preseglo največje dovoljene stopnje.
+S pomočjo generatorja dreves nato ustvarimo začetno populacijo osebkov.
 
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika3}
+\end{figure*}
 
+\pagebreak
 
-To funkcijo nato uporabimo, da ustvarimo začetno populacijo osebkov s podobnimi lastnostmi. 
-Ta funkcija nam vrne seznam slovarjev grafov. Potem definiramo še funkcijo $fitness$, 
-ki preveri seznam dreves in nam vrne optimalno drevo glede na neko iskano optimalno lastnost. 
-V primeru iskanja drevesa z največjim Wienerjevim indeksom pri fiksnem premeru je to drevo, 
-ki bo iz te množice imelo največji Wienerjev index.
+Potem definiramo še funkcijo $fitness$, 
+ki med danim seznamom dreves poišče tistega, ki ima najboljšo iskano lastnost. V našem primeru recimo
+izmed izbranih dreves poišče tistega z minimalnim Wienerjevim indeksom.
 Naslednja funkcija, ki jo definiramo je funkcija $mutate$.
-S to funkcijo v algoritem vpeljemo še možnost mutacije, kjer se eden od listov drevesa naključno prestavi na neko drugo mesto.
+S to funkcijo v algoritem vpeljemo še možnost mutacije, kjer se v primeru, da do mutacije pride,
+ eden od listov drevesa naključno prestavi na neko drugo mesto.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika4}
+\end{figure*}
+
+\pagebreak
+
 Predzadnja funkcija, ki smo jo napisali, je funkcija $crossover$. 
-Ta iz dveh podanih dreves s križanjem sestavi dve novi drevesi. 
+Ta iz dveh podanih dreves s križanjem sestavi dve novi drevesi. To stori tako,
+da naključno v teh drevesih izbere vozlišči in njuna soseda, nato povezavo med
+izbranim vozliščem in sosedom prekine, ter navzkrižno poveže del prvega grafa z delom drugega in obratno.
+Nato preveri, ali karakteristike dobljenih dreves ustrezajo iskanim. V primeru, da ustrezajo, vrne dobljena grafa, v nasprotnem
+primeru pa križanje izvaja toliko časa, dokler ne dobi dveh ustreznih grafov.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika5}
+\end{figure*}
+
+\pagebreak
+
 Zadnja funkcija, ki smo jo spisali, je funkcija $nova\_generacija$. 
 Parametra, ki ju podamo tej funkciji sta $zacetna\_generacija$ in $verjetnost$. 
-S pomočjo te funkcije iz začetne generacije z mutacijami in križanjem dreves ustvarimo novo generacijo.
+S pomočjo te funkcije iz začetne generacije z mutacijami in križanjem dreves ustvarimo novo generacijo. Iz začetne generacije naključno vzamemo
+dva osebka, ju podvržemo možnosti mutacije in nato prekrižamo. Nato izmed dobljenih dreves in njunih staršev izberemo najboljša dva, ki ju
+pošljemo v naslednjo generacijo. Na ta način se najboljša drevesa skoraj vedno prenesejo v naslednjo generacijo.
 Na koncu nam preostane še, da vse, kar smo do sedaj spisali uporabimo v simulaciji,
 ki ustvari začetno populacijo in nato $stevilo\_generacij$-krat iz prejšnje generacije ustvari novo,
 kar bi v teoriji po dovolj velikem številu korakov moralo pripeljati do zelo dobrega približka optimalne rešitve.
-\\
-\\
-\subsubsection{Genetski algoritem za drevesa z največjo stopnjo}
+
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika6}
+\end{figure*}
+
+
+
+\subsubsection{Genetski algoritem za drevesa s fiksnim premerom}
 \
 \\
 Pri drevesih z največjo stopnjo vozlišča je princip precej podoben tistemu, ki ga uporabimo pri drevesih s fiksnim premerom.
 Uporabljene funkcije so podobne, razlikujejo se po tem, da se ne osredotočajo na največji premer, temveč preverjajo največjo stopnjo.
-\\
-\\
-Na koncu bomo primerjali algoritma in pogledali, kdaj se ustavi naš enostavni algoritem za iskanje grafov z max/min Wienerjevim indeksom
-oziroma za katero število vozlišč je genetski algoritem še učinkovit.
 
+
+\subsection{Zaključek}
+\
+\\
+Funkciji, ki iščeta optimalna drevesa prek izčrpne metode, oziroma načina, da preverita vsa drevesa in vrneta tistega
+z iskano optimalno lastnostjo, najsi bo to maksimalni al minimalni Wienerjev indeks, sta, kot že rečeno, zelo potratni in dobro
+delujeta le do okoli 18 vozlišč. 
+\\
+Nasprotno genetski algoritem za iskanje dreves z minimalnim Wienerjevim indeksom dela zelo dobro, testirali smo ga na drevesih s 50 vozlišči,
+z največjo stopnjo 15, velikostjo začetne populacije 100 in številom generacij 100, z verjetnostjo 0.05, da pride do mutacije. Rezultat vrne v
+malo manj kot dveh minutah, kar se nam zdi precej dobro.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika7}
+\end{figure*}
+
+\pagebreak
+Slabše deluje genetski algoritem za iskanje max Wienerjevega indeksa pri fiksnem primeru, za isti problem porabi približno 100-krat več časa.
+Menimo, da je to tako, ker se pri križanju dveh dreves z največjo stopnjo največja stopnja vedno ohrani, torej se mora ujeti le število vozlišč.
+Pri križanju dreves, kjer želimo, da se ohrani premer in število vozlišč, pa je oboje hkrati težko doseči, torej ista metoda križanja kot pri
+iskanju minimalnega indeksa ne deluje, prilagoditve pa vzamejo nekaj časa.
 
 
 
