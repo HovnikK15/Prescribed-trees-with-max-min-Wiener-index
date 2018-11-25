@@ -127,12 +127,12 @@ pa ima tudi generator dreves in že vgrajeno funkcijo za izračun Wienerjevega i
 Najprej smo se lotili izračuna Wienerjevih indeksov na preprostih grafih z malo vozlišči, da vidimo, kako naj bi ta struktura grafov 
 z minimalnimi oziroma maksimalnimi indeksi izgledala v splošnem. 
 \subsection{Enostaven algoritem}
-\subsubsection{Maksimalen Wiener index na drevesih s fiksnim polmerom}
+\subsubsection{Maksimalen Wiener index na drevesih s fiksnim premerom}
 \
 \\
-Definirali funkcijo $drevesa(n)$, ki nam izpiše seznam vseh dreves s številom vozlišč $n$. Potem smo to funkcijo uporabili v 
-funkciji $drevesa\_premer(n)$, ki nam iz prejšnjih dreves generira slovar, kjer so ključi možni premeri naših dreves, vrednosti ključev pa so pripadajoča drevesa. Tako smo si pripravili podlago za enostaven algoritem iskanja maksimalnega Weiner indexa za drevesa z določenim premerom. 
-Sestavili smo funkcijo $max\_Weinerindex(n,N)$, kjer je $N$ fiksen premer. Ta funkcija nam je za vsa drevesa s številom vozlišč $n$ in premerom $N$ izpisala maksimalni Wiener index in nam to drevo tudi izrisala.
+Definirali smo funkcijo $drevesa(n)$, ki nam izpiše seznam vseh dreves s številom vozlišč $n$. Potem smo to funkcijo uporabili v 
+funkciji $drevesa\_premer(n)$, ki nam iz prejšnjih dreves generira slovar, kjer so ključi možni premeri naših dreves, vrednosti ključev pa so pripadajoča drevesa. Tako smo si pripravili podlago za enostaven algoritem iskanja maksimalnega Wiener indexa za drevesa z določenim premerom. 
+Sestavili smo funkcijo $max\_Weinerindex(n,N)$, kjer je $N$ fiksen premer. Ta funkcija nam je za vsa drevesa s številom vozlišč $n$ in premerom $N$ izpisala maksimalni Wiener index in nam drevo, kjer je ta indeks dosežen tudi izrisala.
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=1\textwidth]{slika1}
@@ -145,7 +145,7 @@ Sestavili smo funkcijo $max\_Weinerindex(n,N)$, kjer je $N$ fiksen premer. Ta fu
 \
 \\
 Za iskanje najmanjših Wienerjevih indeksov pri določenem številu vozlišč $n$ in pri fiksni maksimalni stopnji  $m$
-smo definirali funkcijo $fiksna\_stopnja$,  ki nam je iz seznama, ki ga vrne funkcija $drevesa(n)$ izpisala drevesa z maksimalno stopnjo $m$. Izmed teh optimalnih dreves pa smo potem s funkcijo $.wiener\_index()$ izračunali najmanjši Wiener index, ter drevo s tem indeksom tudi izpisali.
+smo definirali funkcijo $fiksna\_stopnja$,  ki nam je iz seznama, ki ga vrne funkcija $drevesa(n)$ izpisala drevesa z maksimalno stopnjo $m$. Izmed teh optimalnih dreves pa smo potem s funkcijo $.wiener\_index()$ izračunali najmanjši Wiener index, ter drevo s tem indeksom tudi izrisali.
 
 \begin{figure*}[ht]
 \centering
@@ -154,7 +154,7 @@ smo definirali funkcijo $fiksna\_stopnja$,  ki nam je iz seznama, ki ga vrne fun
 \pagebreak
 \
 \\
-Hitro smo prišli do ugotovitve, da je naš algoritem za izračun indeksov časovno prepotraten. Zato smo se problema iskanja Wienerjevih indeksov lotili na drugačen način. In sicer z $genetskim algoritmom$ katerega ideja je, da izmed dreves na manjših vozliščih gradimo večja drevesa
+Hitro smo prišli do ugotovitve, da je naš algoritem za izračun indeksov časovno prepotraten. Zato smo se problema iskanja Wienerjevih indeksov lotili na drugačen način. In sicer z $genetskim algoritmom$ katerega ideja je, da ustvarimo populacijo začetnih osebkov, ki jih potem kombiniramo s križanjem in mutacijami, da prihajamo do vedno boljših rezultatov.
 
 
 \subsection{Genetski algoritem}
@@ -166,17 +166,24 @@ in selekcija.
 \\
 \\
 V genetskem algoritmu se uporabi množica kandidatov za rešitev, ki jih nato razvijamo do optimalne rešitve. Vsak kandidat
-ima določene lastnosti, katere lahko spremenimo oziroma lahko mutirajo. Evolucija rešitev se ponavadi začne na naključni izbiri kandidatov,
+ima določene lastnosti, ki jih lahko spremenimo oziroma lahko mutirajo. Evolucija rešitev se ponavadi začne na naključni izbiri kandidatov,
 katere potem s pomočjo iteracije razvijamo. Na vsakem iterativnem koraku se potem oceni primernost novih kandidatov za optimizacijski
 problem. Najboljše kandidate potem uporabimo za naslednji korak iteracije in tako dalje. Na koncu se algoritem zaključi,
 ko doseže maksimalno število iteracijskih korakov oziroma, ko dobi najboljši približek optimalni rešitvi.
 \\
 \\
-Naša začetna množica kandidatov bodo optimalna drevesa, ki smo jih dobili z našim prvim enostavnim algoritmom. 
-Nato bomo ustvarili genetski algoritem, ki bo iz teh začetnih podatkov generiral nova optimalna drevesa. Ta postopek bomo
-nadaljevali (in pri tem selekcionirali iz novo nastalih dreves le najboljše za naslednje korake), dokler ne bomo prišli do optimalnih 
+Naša začetna množica kandidatov bodo drevesa na $n$ vozliščih, ki sta jim skupna ali premer ali pa največja stopnja. 
+Nato smo ustvarili genetski algoritem, ki iz začetne množice dreves generira naslednjo generacijo dreves. Ta postopek nato iterativno
+nadaljujemo (in pri tem selekcioniramo iz novo nastalih dreves le najboljše za naslednje korake), dokler ne bomo prišli do optimalnih 
 dreves za določeno število vozlišč. Pri tem bomo morali paziti, da se bo ohranjala maksimalna stopnja vozlišč, 
-oziroma v drugem primeru, premer. 
+oziroma v drugem primeru, premer.
+\\
+\\
+subsubsection{Genetski algoritem za drevesa s fiksnim premerom}
+\
+\\
+Pri tem algoritmu najprej definiramo funkcijo, ki zgenerira graf na $st_vozlisc$ vozliščih s fiksnim premerom $premer$. To funkcijo nato uporabimo, da ustvarimo začetno populacijo osebkov s podobnimi lastnostmi. Ta funkcija nam vrne seznam slovarjev grafov. Potem definiramo še funkcijo $fitness$, ki preveri seznam dreves in nam vrne optimalno drevo glede na neko iskano optimalno lastnost. V primeru iskanja drevesa z največjim Wienerjevim indeksom pri fiksnem premeru je to drevo, ki bo iz te množice imelo največji Wienerjev index.
+Naslednja funkcija, ki jo definiramo je funkcija $mutate$. S to funkcijo v algoritem vpeljemo še možnost mutacije, kjer se eden od listov drevesa naključno prestavi na neko drugo mesto. Predzadnja funkcija, ki smo jo napisali, je funkcija $crossover$. Ta iz dveh podanih dreves s križanjem sestavi dve novi drevesi. Zadnja funkcija, ki smo jo spisali, je funkcija $nova_generacija$. Parametra, ki ju podamo tej funkciji sta $zacetna_generacija$ in $verjetnost$. S pomočjo te funkcije iz začetne generacije z mutacijami in križanjem dreves iz začetne populacije ustvarimo novo generacijo. Na koncu nam preostane še, da vse, kar smo do sedaj spisali uporabimo v simulaciji, ki ustvari začetno populacijo in nato $stevilo_generacij$-krat iz prejšnje generacije ustvari novo, kar bi v teoriji po dovolj velikem številu korakov moralo pripeljati do zelo dobrega približka optimalne rešitve.
 \\
 \\
 Na koncu bomo primerjali algoritma in pogledali, kdaj se ustavi naš enostavni algoritem za iskanje grafov z max/min Wienerjevim indeksom
