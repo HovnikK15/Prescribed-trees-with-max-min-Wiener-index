@@ -162,6 +162,7 @@ smo definirali funkcijo $fiksna\_stopnja$,  ki nam je iz seznama, ki ga vrne fun
 \
 \\
 Hitro smo prišli do ugotovitve, da je naš algoritem za izračun indeksov časovno prepotraten. Zato smo se problema iskanja Wienerjevih indeksov lotili na drugačen način. In sicer z $genetskim$ $algoritmom$ katerega ideja je, da ustvarimo populacijo začetnih osebkov, ki jih potem kombiniramo s križanjem in mutacijami, da prihajamo do vedno boljših rezultatov.
+
 \subsection{Genetski algoritem}
 \
 \\
@@ -193,11 +194,11 @@ smo funkcijo spisali tako, da najprej vzame graf zvezde in nato naključno dodaj
 ne bi preseglo največje dovoljene stopnje.
 S pomočjo generatorja dreves nato ustvarimo začetno populacijo osebkov.
 
+
 \begin{figure*}[ht]
 \centering
 \includegraphics[width=1\textwidth]{slika3}
 \end{figure*}
-
 \pagebreak
 
 Potem definiramo še funkcijo $fitness$, 
@@ -212,7 +213,7 @@ S to funkcijo v algoritem vpeljemo še možnost mutacije, kjer se v primeru, da 
 \includegraphics[width=1\textwidth]{slika4}
 \end{figure*}
 
-\pagebreak
+
 
 Predzadnja funkcija, ki smo jo napisali, je funkcija $crossover$. 
 Ta iz dveh podanih dreves s križanjem sestavi dve novi drevesi. To stori tako,
@@ -226,7 +227,7 @@ primeru pa križanje izvaja toliko časa, dokler ne dobi dveh ustreznih grafov.
 \includegraphics[width=1\textwidth]{slika5}
 \end{figure*}
 
-\pagebreak
+
 
 Zadnja funkcija, ki smo jo spisali, je funkcija $nova\_generacija$. 
 Parametra, ki ju podamo tej funkciji sta $zacetna\_generacija$ in $verjetnost$. 
@@ -251,10 +252,8 @@ kar bi v teoriji po dovolj velikem številu korakov moralo pripeljati do zelo do
 \\
 Pri drevesih s fiksnim premerom je princip precej podoben tistemu, ki ga uporabimo pri drevesih z določeno maksimalno stopnjo vozlišč. Le, da smo tukaj iskali maksimalen Wienerjev indeks.
 Uporabljene funkcije so podobne, razlikujejo se po tem, da se ne osredotočajo na maksimalno stopnjo, temveč preverjajo premer grafa. Celoten algoritem si lahko pogledate na \href{https://github.com/HovnikK15/Prescribed-trees-with-max-min-Wiener-index/blob/master/Genetic%20algorithm%20for%20max%20Wiener%20index.sagews}{github} repozitoriju.
-\\
 \section{Zaključek}
 \
-\\
 \\
 Funkciji, ki iščeta optimalna drevesa prek izčrpne metode, oziroma načina, da preverita vsa drevesa in vrneta tistega
 z iskano optimalno lastnostjo, naj bo to maksimalni al minimalni Wienerjev indeks, sta, kot že rečeno, zelo potratni in dobro
@@ -267,7 +266,7 @@ z največjo stopnjo 15, velikostjo začetne populacije 100, številom generacij 
 \includegraphics[width=1\textwidth]{slika7}
 \end{figure*}
 
-\pagebreak
+
 Slabše deluje genetski algoritem za iskanje max Wienerjevega indeksa pri fiksnem primeru, za isti problem porabi približno 100-krat več časa.
 Menimo, da je to tako, ker se pri križanju dveh dreves z največjo stopnjo največja stopnja vedno ohrani, torej se mora ujeti le število vozlišč.
 Pri križanju dreves, kjer želimo, da se ohrani premer in število vozlišč, pa je oboje hkrati težko doseči, torej ista metoda križanja kot pri
