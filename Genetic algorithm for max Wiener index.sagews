@@ -94,105 +94,22 @@ def crossover(drevo1, drevo2):
     novo_drevo2.relabel()
 
     
-    if novo_drevo1.diameter() == novo_drevo2.diameter() and novo_drevo1.diameter() == Graph(drevo1).diameter() and novo_drevo1.order() == novo_drevo2.order() and novo_drevo1.order() == Graph(drevo1).order():
+    if novo_drevo1.diameter() <= Graph(drevo1).diameter() and novo_drevo2.diameter() <= Graph(drevo1).diameter() and novo_drevo1.order() == novo_drevo2.order() and novo_drevo1.order() == Graph(drevo1).order():
         #preverimo, če se max stopnja in število vozlišč ohrani
         #novo_drevo1.show()
         #novo_drevo2.show()
         return [novo_drevo1.to_dictionary(), novo_drevo2.to_dictionary()]
 
     else:
-                
-        if novo_drevo1.diameter() > Graph(drevo1).diameter():
-            while novo_drevo1.diameter() > Graph(drevo1).diameter():
-                listki = []
-                for j in range(0,novo_drevo1.order()):
-                    if novo_drevo1.degree()[j] == 1 and novo_drevo1.eccentricity()[j] > Graph(drevo1).diameter():
-                        listki.append(j)
-                izbrano_vozlisce = random.choice(listki)
-                novo_drevo1.delete_vertex(izbrano_vozlisce)
-                novo_drevo1.relabel() #Na ta način dosežemo, da imamo takoj ustrezen premer
-                
-        if novo_drevo1.diameter() < Graph(drevo1).diameter():
-            while novo_drevo1.diameter() < Graph(drevo1).diameter():
-                listki = []
-                for j in range(0,novo_drevo1.order()):
-                    if novo_drevo1.degree()[j] == 1 and novo_drevo1.eccentricity()[j] < Graph(drevo1).diameter():
-                        listki.append(j)
-                izbrano_vozlisce = random.choice(listki)
-                novo_drevo1.add_edge(novo_drevo1.order(),izbrano_vozlisce)
-                novo_drevo1.relabel()
-                
-        if novo_drevo1.order() < Graph(drevo1).order():
-            while novo_drevo1.order() < Graph(drevo1).order():
-                ustrezna_vozlisca = []
-                for vozlisce in range(0,novo_drevo1.order()):
-                    if novo_drevo1.eccentricity()[vozlisce] + 1 <= Graph(drevo1).diameter():
-                        ustrezna_vozlisca.append(vozlisce)
-                izbrano_vozlisce = random.choice(ustrezna_vozlisca)
-                novo_drevo1.add_edge(novo_drevo1.order(), izbrano_vozlisce)
-                
-        if novo_drevo1.order() > Graph(drevo1).order():
-            while novo_drevo1.order() > Graph(drevo1).order():
-                ustrezna_vozlisca = []
-                for vozlisce in range(0,novo_drevo1.order()):
-                    if novo_drevo1.degree()[vozlisce] == 1 and novo_drevo1.eccentricity()[vozlisce] < Graph(drevo1).diameter():
-                        ustrezna_vozlisca.append(vozlisce)
-                if ustrezna_vozlisca == []:
-                    for vozlisce in range(0,novo_drevo1.order()):
-                        if novo_drevo1.degree()[vozlisce] == 1:
-                            ustrezna_vozlisca.append(vozlisce)
-                izbrano_vozlisce = random.choice(ustrezna_vozlisca)
-                novo_drevo1.delete_vertex(izbrano_vozlisce)
-                novo_drevo1.relabel()
-#Sedaj pa še za drugo dobljeno drevo
-        if novo_drevo2.diameter() > Graph(drevo1).diameter():
-            while novo_drevo2.diameter() > Graph(drevo1).diameter():
-                listki = []
-                for j in range(0,novo_drevo2.order()):
-                    if novo_drevo2.degree()[j] == 1 and novo_drevo2.eccentricity()[j] > Graph(drevo1).diameter():
-                        listki.append(j)
-                izbrano_vozlisce = random.choice(listki)
-                novo_drevo2.delete_vertex(izbrano_vozlisce)
-                novo_drevo2.relabel() #Na ta način dosežemo, da imamo takoj ustrezen premer
-                
-        if novo_drevo2.diameter() < Graph(drevo1).diameter():
-            while novo_drevo2.diameter() < Graph(drevo1).diameter():
-                listki = []
-                for j in range(0,novo_drevo2.order()):
-                    if novo_drevo2.degree()[j] == 1 and novo_drevo2.eccentricity()[j] < Graph(drevo1).diameter():
-                        listki.append(j)
-                izbrano_vozlisce = random.choice(listki)
-                novo_drevo2.add_edge(novo_drevo2.order(),izbrano_vozlisce)
-                novo_drevo2.relabel()
-                
-        if novo_drevo2.order() < Graph(drevo1).order():
-            while novo_drevo2.order() < Graph(drevo1).order():
-                ustrezna_vozlisca = []
-                for vozlisce in range(0,novo_drevo2.order()):
-                    if novo_drevo2.eccentricity()[vozlisce] + 1 <= Graph(drevo1).diameter():
-                        ustrezna_vozlisca.append(vozlisce)
-                izbrano_vozlisce = random.choice(ustrezna_vozlisca)
-                novo_drevo2.add_edge(novo_drevo2.order(), izbrano_vozlisce)
-                
-        if novo_drevo2.order() > Graph(drevo1).order():
-            while novo_drevo2.order() > Graph(drevo1).order():
-                ustrezna_vozlisca = []
-                for vozlisce in range(0,novo_drevo2.order()):
-                    if novo_drevo2.degree()[vozlisce] == 1 and novo_drevo2.eccentricity()[vozlisce] < Graph(drevo1).diameter():
-                        ustrezna_vozlisca.append(vozlisce)
-                if ustrezna_vozlisca == []:
-                    for vozlisce in range(0,novo_drevo2.order()):
-                        if novo_drevo2.degree()[vozlisce] == 1:
-                            ustrezna_vozlisca.append(vozlisce)
-                izbrano_vozlisce = random.choice(ustrezna_vozlisca)
-                novo_drevo2.delete_vertex(izbrano_vozlisce)
-                novo_drevo2.relabel()
-            
-    return [novo_drevo1.to_dictionary(), novo_drevo2.to_dictionary()]
+        return [drevo1, drevo2]
 
 def nova_generacija(zacetna_generacija, verjetnost): #definira novo generacijo osebkov
     nova_generacija = []
-    i = 0
+    a = 0
+    i = len(zacetna_generacija)//10 + 1
+    while a < i:
+        nova_generacija.append(fitness(zacetna_generacija))
+        a += 1
     while i < len(zacetna_generacija):
 
         drevo1 = random.choice(zacetna_generacija)
@@ -201,7 +118,7 @@ def nova_generacija(zacetna_generacija, verjetnost): #definira novo generacijo o
         mutirano_drevo2 = mutate(drevo2, verjetnost)
         novi_drevesi = crossover(mutirano_drevo1, mutirano_drevo2)
         novo_drevo1 = novi_drevesi[0]
-        novo_drevo2 = novi_drevesi[0]
+        novo_drevo2 = novi_drevesi[1]
         optimalno_drevo = fitness([novo_drevo1, novo_drevo2, mutirano_drevo1, mutirano_drevo2, drevo1, drevo2])
         
         nova_generacija.append(optimalno_drevo)
@@ -218,12 +135,7 @@ def simulacija(st_vozlisc, premer, stevilo_osebkov, stevilo_generacij, verjetnos
         populacija = nova_generacija(populacija, verjetnost)
         i = i + 1
     return fitness(populacija), Graph(fitness(populacija)).wiener_index(), Graph(fitness(populacija)).show()
-︡c3c2e510-933d-414f-8919-a96d8d5d67c2︡{"done":true}︡
-︠b03343f2-ffd6-4676-b78c-4a92889534fbs︠
-a = nakljucni_graf(8,4)
-b = nakljucni_graf(8,4)
-a.show()
-b.show()
+
 
 ︡ad635be8-5eab-4792-9362-ff67070b5540︡{"file":{"filename":"/home/user/.sage/temp/project-7876ec95-bf6e-4f85-982b-f53e8579fa5d/443/tmp_7hrl7T.svg","show":true,"text":null,"uuid":"1c972f42-7f80-409b-ab52-6d32b98adb48"},"once":false}︡{"file":{"filename":"/home/user/.sage/temp/project-7876ec95-bf6e-4f85-982b-f53e8579fa5d/443/tmp_0s5cFZ.svg","show":true,"text":null,"uuid":"89488013-7dba-4571-b186-a2cc99794643"},"once":false}︡{"done":true}︡
 ︠529b7ceb-30e5-4020-81f0-68a779ccf316s︠
