@@ -1,7 +1,4 @@
 ︠741a827e-d77e-4b7c-9531-db19ed73fa4a︠
-
-︡ed370dcb-6cfd-4020-bbed-c85fb438bd27︡
-︠db6eb976-6530-49fb-a337-ea7d72cb7a1as︠
 import random
 
 def nakljucni_graf(st_vozlisc, premer):
@@ -95,7 +92,7 @@ def crossover(drevo1, drevo2):
 
     
     if novo_drevo1.diameter() <= Graph(drevo1).diameter() and novo_drevo2.diameter() <= Graph(drevo1).diameter() and novo_drevo1.order() == novo_drevo2.order() and novo_drevo1.order() == Graph(drevo1).order():
-        #preverimo, če se max stopnja in število vozlišč ohrani
+        #preverimo, če se premer in število vozlišč ohrani
         #novo_drevo1.show()
         #novo_drevo2.show()
         return [novo_drevo1.to_dictionary(), novo_drevo2.to_dictionary()]
@@ -135,12 +132,10 @@ def simulacija(st_vozlisc, premer, stevilo_osebkov, stevilo_generacij, verjetnos
         populacija = nova_generacija(populacija, verjetnost)
         i = i + 1
     return fitness(populacija), Graph(fitness(populacija)).wiener_index(), Graph(fitness(populacija)).show()
-
-
-︡ad635be8-5eab-4792-9362-ff67070b5540︡{"file":{"filename":"/home/user/.sage/temp/project-7876ec95-bf6e-4f85-982b-f53e8579fa5d/443/tmp_7hrl7T.svg","show":true,"text":null,"uuid":"1c972f42-7f80-409b-ab52-6d32b98adb48"},"once":false}︡{"file":{"filename":"/home/user/.sage/temp/project-7876ec95-bf6e-4f85-982b-f53e8579fa5d/443/tmp_0s5cFZ.svg","show":true,"text":null,"uuid":"89488013-7dba-4571-b186-a2cc99794643"},"once":false}︡{"done":true}︡
-︠529b7ceb-30e5-4020-81f0-68a779ccf316s︠
-simulacija(50,15,100,3,0.05)
-︡b5bd98b2-46b5-43e7-912e-ce96a50850ea︡{"file":{"filename":"/home/user/.sage/temp/project-7876ec95-bf6e-4f85-982b-f53e8579fa5d/443/tmp_joKy6z.svg","show":true,"text":null,"uuid":"6c189190-6c83-40b6-bbc5-dfd1c420a94f"},"once":false}︡{"stdout":"({0: [1, 2, 38], 1: [0, 4, 29], 2: [0, 3], 3: [2, 5], 4: [1, 19, 6], 5: [3, 8], 6: [4, 7], 7: [6, 9, 30], 8: [5, 42, 11], 9: [22, 7, 10], 10: [18, 9, 12], 11: [17, 8, 27, 13], 12: [10], 13: [16, 23, 11, 14], 14: [26, 28, 13, 15], 15: [14], 16: [20, 39, 25, 13], 17: [21, 11], 18: [10], 19: [4, 24], 20: [16], 21: [17, 45], 22: [37, 9], 23: [13], 24: [32, 19, 44], 25: [16], 26: [14], 27: [49, 41, 11, 47], 28: [14], 29: [1, 31], 30: [7], 31: [33, 34, 29], 32: [35, 24, 40], 33: [43, 31], 34: [31], 35: [32], 36: [47], 37: [22], 38: [0], 39: [16], 40: [32, 48], 41: [27], 42: [8, 46], 43: [33], 44: [24], 45: [21], 46: [42], 47: [36, 27], 48: [40], 49: [27]}, 9313, None)"}︡{"stdout":"\n"}︡{"done":true}︡
+︡d89c1458-27bb-4d09-aef6-b048c3ba6e0d︡{"done":true}︡
+︠d9eae0c0-455e-44de-9583-9e6d737dcaces︠
+simulacija(17, 3, 10, 50, 0.02)
+︡dc77ce41-833a-429a-87dc-98b0007e84e6︡{"file":{"filename":"/home/user/.sage/temp/project-7876ec95-bf6e-4f85-982b-f53e8579fa5d/7196/tmp_1zqIAH.svg","show":true,"text":null,"uuid":"2e29e1a4-eb90-4e11-bfc7-3d5682af56cc"},"once":false}︡{"stdout":"({0: [1], 1: [0, 16, 2, 5, 6, 8, 9, 11], 2: [1, 3, 4, 7, 10, 12, 13, 14, 15], 3: [2], 4: [2], 5: [1], 6: [1], 7: [2], 8: [1], 9: [1], 10: [2], 11: [1], 12: [2], 13: [2], 14: [2], 15: [2], 16: [1]}, 312, None)"}︡{"stdout":"\n"}︡{"done":true}︡
 
 
 
