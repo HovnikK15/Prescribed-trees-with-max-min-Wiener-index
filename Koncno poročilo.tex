@@ -1,0 +1,285 @@
+\documentclass[12pt,a4paper]{amsart}
+% ukazi za delo s slovenscino -- izberi kodiranje, ki ti ustreza
+\usepackage[slovene]{babel}
+%\usepackage[cp1250]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{url}
+\usepackage{graphicx}
+%\usepackage[demo]{graphicx}
+%\usepackage[normalem]{ulem}
+\usepackage[dvipsnames,usenames]{color}
+\usepackage{hyperref}
+\hypersetup{
+     colorlinks   = true,
+     citecolor    = gray
+}
+
+% ne spreminjaj podatkov, ki vplivajo na obliko strani
+\textwidth 15cm
+\textheight 24cm
+\oddsidemargin.5cm
+\evensidemargin.5cm
+\topmargin-5mm
+\addtolength{\footskip}{10pt}
+\pagestyle{plain}
+\overfullrule=15pt % oznaci predlogo vrstico
+
+
+% ukazi za matematicna okolja
+\theoremstyle{definition} % tekst napisan pokoncno
+\newtheorem{definicija}{Definicija}[section]
+\newtheorem{primer}[definicija]{Primer}
+\newtheorem{opomba}[definicija]{Opomba}
+
+\renewcommand\endprimer{\hfill$\diamondsuit$}
+
+
+\theoremstyle{plain} % tekst napisan posevno
+\newtheorem{lema}[definicija]{Lema}
+\newtheorem{izrek}[definicija]{Izrek}
+\newtheorem{trditev}[definicija]{Trditev}
+\newtheorem{posledica}[definicija]{Posledica}
+
+
+% za stevilske mnozice uporabi naslednje simbole
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+
+% ukaz za slovarsko geslo
+\newlength{\odstavek}
+\setlength{\odstavek}{\parindent}
+\newcommand{\geslo}[2]{\noindent\textbf{#1}\hspace*{3mm}\hangindent=\parindent\hangafter=1 #2}
+
+% naslednje ukaze ustrezno popravi
+\newcommand{\program}{Finančna matematika} % ime studijskega programa: Matematika/Finan"cna matematika
+\newcommand{\imeavtorja}{Klemen Hovnik\\ Matija Gubanec Hančič \\ Jan Rudof} % ime avtorja
+\newcommand{\imementorja}{Riste} % akademski naziv in ime mentorja
+\newcommand{\naslovdela}{Predpisana drevesa z najmanjšim/največjim Wienerjevim indeksom}
+\newcommand{\letnica}{2018} %letnica 
+
+
+% vstavi svoje definicije ...
+
+
+
+
+\begin{document}
+
+% od tod do povzetka ne spreminjaj nicesar
+\thispagestyle{empty}
+\noindent{\large
+UNIVERZA V LJUBLJANI\\[1mm]
+FAKULTETA ZA MATEMATIKO IN FIZIKO\\[5mm]
+\program\ -- 1.~stopnja}
+\vfill
+
+\begin{center}{\large
+\imeavtorja\\[2mm]
+{\bf \naslovdela}\\[10mm]
+Projekt v povezavi z OR\\[1cm]}
+
+\end{center}
+\vfill
+
+\noindent{\large
+Ljubljana, \letnica}
+\pagebreak
+
+\thispagestyle{empty}
+\hypersetup{linkcolor = black}
+\tableofcontents
+\pagebreak
+
+\section{Navodilo}
+
+We want to analyze the structure of trees on a fixed number of vertices $n$ and fixed maximum
+degree $\Delta$ that have Wiener index (i.e. total distance) as small as possible. Similarly, we want to
+find the structure of trees on a fixed number of vertices $n$ with fixed diameter $d$ that have Wiener
+index (i.e. total distance) as large as possible.
+In order to get the answer for very small values of $n$ first, apply an exhaustive search, and
+next, for larger $n$, apply a genetic algorithm or any other metaheuristic. Verify for how large $n$
+your exhaustive search and your genetic algorithm implementations are efficient.
+
+
+
+
+\section{Uvod}
+
+Naj bo $G=(V(G),  E(G))$ enostaven povezan neusmerjen graf. $Wienerjev$ $ indeks$ (oziroma $Wienerjevo$  $"stevilo$ $ W(G)$) je definiran kot
+\begin{equation}
+W(G) = \frac{1}{2}\sum_{u\in V(g)}\sum_{v\in V(g)} d_G(u,v).
+\end{equation}
+Tukaj označimo z $d_G(u,v)$ razdaljo med vozliščem $u$ in $v$ v grafu $G$. 
+\\
+\\
+Naša naloga je, da analiziramo lastnosti dreves z določenim številom vozlišč in 
+fiksno maksimalno stopnjo vozlišč, ki imajo najmanjši Wienerjev indeks. Podobno nas zanimajo tudi lastnosti 
+dreves na določenem številu vozlišč s fiksnim premerom, ki imajo največji možni Wienerjev indeks.
+\\
+\\
+Za izvedbo projekta smo si izbrali programski jezik $Sage$, saj ta že vsebuje orodja za delo z grafi, prav tako 
+pa ima tudi generator dreves in že vgrajeno funkcijo za izračun Wienerjevega indeksa. 
+
+\section{Opis dela}
+
+\
+
+Najprej smo se lotili izračuna Wienerjevih indeksov na preprostih grafih z malo vozlišči, da vidimo, kako naj bi ta struktura grafov 
+z minimalnimi oziroma maksimalnimi indeksi izgledala v splošnem. 
+\subsection{Enostaven algoritem}
+\subsubsection{Maksimalen Wiener index na drevesih s fiksnim premerom}
+\
+\\
+\\
+Definirali smo funkcijo $drevesa(n)$, ki nam izpiše seznam vseh dreves s številom vozlišč $n$. Potem smo to funkcijo uporabili v 
+funkciji $drevesa\_premer(n)$, ki nam iz prejšnjih dreves generira slovar, kjer so ključi možni premeri naših dreves, vrednosti ključev pa so pripadajoča drevesa. Tako smo si pripravili podlago za enostaven algoritem iskanja maksimalnega Wiener indexa za drevesa z določenim premerom. 
+Sestavili smo funkcijo $max\_Weinerindex(n,N)$, kjer je $N$ fiksen premer. Ta funkcija nam je za vsa drevesa s številom vozlišč $n$ in premerom $N$ izpisala maksimalni Wiener index in nam drevo, kjer je ta indeks dosežen tudi izrisala.
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika1}
+%\includegraphics{slika1}
+\end{figure*}
+\pagebreak
+
+
+\subsubsection{Minimalen Wiener index na drevesih s fiksno stopnjo}
+\
+\\
+\\
+Za iskanje najmanjših Wienerjevih indeksov pri določenem številu vozlišč $n$ in pri fiksni maksimalni stopnji  $m$
+smo definirali funkcijo $fiksna\_stopnja$,  ki nam je iz seznama, ki ga vrne funkcija $drevesa(n)$ izpisala drevesa z maksimalno stopnjo $m$. Izmed teh optimalnih dreves pa smo potem s funkcijo $.wiener\_index()$ izračunali najmanjši Wiener index, ter drevo s tem indeksom tudi izrisali.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika2}
+\end{figure*}
+\pagebreak
+\
+\\
+Hitro smo prišli do ugotovitve, da je naš algoritem za izračun indeksov časovno prepotraten. Zato smo se problema iskanja Wienerjevih indeksov lotili na drugačen način. In sicer z $genetskim$ $algoritmom$ katerega ideja je, da ustvarimo populacijo začetnih osebkov, ki jih potem kombiniramo s križanjem in mutacijami, da prihajamo do vedno boljših rezultatov.
+
+\subsection{Genetski algoritem}
+\
+\\
+\\
+$Genetski$ $algoritem$ je metahevristika, navdihnjena s strani procesov naravne selekcije in spada v razred $razvojnih$
+$algoritmov$. Uporablja se za generiranje kvalitetnih rešitev v optimizaciji, ki temeljijo na operatorjih kot so mutacija, križanje
+in selekcija.  
+\\
+\\
+V genetskem algoritmu se uporabi množica kandidatov za rešitev, ki jih nato razvijamo do optimalne rešitve. Vsak kandidat
+ima določene lastnosti, ki jih lahko spremenimo oziroma lahko mutirajo. Evolucija rešitev se ponavadi začne na naključni izbiri kandidatov,
+katere potem s pomočjo iteracije razvijamo. Na vsakem iterativnem koraku se potem oceni primernost novih kandidatov za optimizacijski
+problem. Najboljše kandidate potem uporabimo za naslednji korak iteracije in tako dalje. Na koncu se algoritem zaključi,
+ko doseže maksimalno število iteracijskih korakov oziroma, ko dobi najboljši približek optimalni rešitvi.
+\\
+\\
+Naša začetna množica kandidatov bodo drevesa na $n$ vozliščih, ki sta jim skupna ali premer ali pa največja stopnja. 
+Nato smo ustvarili genetski algoritem, ki iz začetne množice dreves generira naslednjo generacijo dreves. Ta postopek nato iterativno
+nadaljujemo (in pri tem selekcioniramo iz novo nastalih dreves le najboljše za naslednje korake), dokler ne bomo prišli do optimalnih 
+dreves za določeno število vozlišč. Pri tem bomo morali paziti, da se bo ohranjala maksimalna stopnja vozlišč, 
+oziroma v drugem primeru, premer.
+\subsubsection{Genetski algoritem za drevesa z največjo stopnjo}
+\
+\\
+\\
+Pri tem algoritmu smo iskali grafe z določenim številom vozlišč in določeno največjo stopnjo vozlišč z najmanjšim Wienerjevim indeksom. Najprej definiramo funkcijo, ki zgenerira graf na $st\_vozlisc$ vozliščih z največjo stopnjo $max\_stopnja$.
+Pri preučevanju karakteristik optimalnih grafov smo ugotovili, da imajo najmanjše Wienerjeve indekse ravno zvezde. Zato 
+smo funkcijo spisali tako, da najprej vzame graf zvezde in nato naključno dodaja povezave, medtem ko pazi, da katero vozlišče
+ne bi preseglo največje dovoljene stopnje.
+S pomočjo generatorja dreves nato ustvarimo začetno populacijo osebkov.
+
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika3}
+\end{figure*}
+\pagebreak
+
+Potem definiramo še funkcijo $fitness$, 
+ki med danim seznamom dreves poišče tistega, ki ima najboljšo iskano lastnost. V našem primeru recimo
+izmed izbranih dreves poišče tistega z minimalnim Wienerjevim indeksom.
+Naslednja funkcija, ki jo definiramo je funkcija $mutate$.
+S to funkcijo v algoritem vpeljemo še možnost mutacije, kjer se v primeru, da do mutacije pride,
+ eden od listov drevesa naključno prestavi na neko drugo mesto.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika4}
+\end{figure*}
+
+
+
+Predzadnja funkcija, ki smo jo napisali, je funkcija $crossover$. 
+Ta iz dveh podanih dreves s križanjem sestavi dve novi drevesi. To stori tako,
+da naključno v teh drevesih izbere vozlišči in njuna soseda, nato povezavo med
+izbranim vozliščem in sosedom prekine ter navzkrižno poveže del prvega grafa z delom drugega in obratno.
+Nato preveri, ali karakteristike dobljenih dreves ustrezajo iskanim. V primeru, da ustrezajo, vrne dobljena grafa, v nasprotnem
+primeru pa križanje izvaja toliko časa, dokler ne dobi dveh ustreznih grafov.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika5}
+\end{figure*}
+
+
+
+Zadnja funkcija, ki smo jo spisali, je funkcija $nova\_generacija$. 
+Parametra, ki ju podamo tej funkciji sta $zacetna\_generacija$ in $verjetnost$. 
+S pomočjo te funkcije iz začetne generacije z mutacijami in križanjem dreves ustvarimo novo generacijo. Iz začetne generacije naključno vzamemo
+dva osebka, ju podvržemo možnosti mutacije in nato prekrižamo. Nato izmed dobljenih dreves in njunih staršev izberemo najboljša dva, ki ju
+pošljemo v naslednjo generacijo. Na ta način se najboljša drevesa skoraj vedno prenesejo v naslednjo generacijo.
+Na koncu nam preostane še, da vse, kar smo do sedaj spisali uporabimo v simulaciji,
+ki ustvari začetno populacijo in nato $stevilo\_generacij$-krat iz prejšnje generacije ustvari novo,
+kar bi v teoriji po dovolj velikem številu korakov moralo pripeljati do zelo dobrega približka optimalne rešitve.
+
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika6}
+\end{figure*}
+
+
+
+\subsubsection{Genetski algoritem za drevesa s fiksnim premerom}
+\
+\\
+\\
+Pri drevesih s fiksnim premerom je princip precej podoben tistemu, ki ga uporabimo pri drevesih z določeno maksimalno stopnjo vozlišč. Le, da smo tukaj iskali maksimalen Wienerjev indeks.
+Uporabljene funkcije so podobne, razlikujejo se po tem, da se ne osredotočajo na maksimalno stopnjo, temveč preverjajo premer grafa. 
+Poigrali smo se tudi z dodajanjem elitizma v funkcijo $nova\_generacija$. Na ta način v naslednjo generacijo osebkov pošljemo nekaj teh iz začetne generacije 
+z najboljšo lastnostjo in zagotovimo, da se najboljše drevo nikoli ne izgubi. Celoten algoritem si lahko pogledate na \href{https://github.com/HovnikK15/Prescribed-trees-with-max-min-Wiener-index/blob/master/Genetic%20algorithm%20for%20max%20Wiener%20index.sagews}{github} repozitoriju.
+\newpage
+\section{Zaključek}
+\
+\\
+Funkciji, ki iščeta optimalna drevesa prek izčrpne metode, oziroma načina, da preverita vsa drevesa in vrneta tistega
+z iskano optimalno lastnostjo, naj bo to maksimalni al minimalni Wienerjev indeks, sta, kot že rečeno, zelo potratni in dobro
+delujeta le do okoli 18 vozlišč. 
+\\
+Nasprotno genetski algoritem za iskanje dreves z minimalnim Wienerjevim indeksom dela zelo dobro, testirali smo ga na drevesih s 50 vozlišči,
+z največjo stopnjo 15, velikostjo začetne populacije 100, številom generacij 100 in z verjetnostjo 0.05, da pride do mutacije. Rezultat vrne v malo manj kot dveh minutah, kar se nam zdi precej dobro.
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika7}
+\end{figure*}
+
+Za grafe, kjer smo iskali minimalni Wienerjev indeks, smo ugotovili, da to optimalno lastnost dosežejo bolj razvejani grafi. Že pri enostavnih algoritmih smo ugotovili, da bi pri določitvi le števila vozlišč imeli najmanjše indekse pri grafih zvezdaste oblike. Ker pa smo morali fiksirati tudi maksimalno stopnjo, pa graf ne more biti vedno zvezda. V teh primerih smo opazili, da je graf zelo razvejan. Seveda pa je razvejanost odvisna od maksimalne stopnje vozlišč (pri višjih maksimalnih stopnjah so grafi veliko bolj razvejani).
+\\
+Približno enako hitro deluje tudi genetski algoritem za iskanje največjega Wienerjevega indeksa. Za iskana drevesa smo ugotovili, da največje indekse dosežejo poti.
+Ker imamo podan največji dovoljeni premer, ne moremo vedno dobiti poti. Ima pa drevo z največjim Wienerjevim indeksom lastnost, da ni preveč razvejano, temveč osnovo grafa sestavlja pot, ki se nato razcepi, večinoma pa so vozlišča nabrana pri koncih osnovne poti.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika8}
+\end{figure*}
+
+
+
+
+\end{document}
