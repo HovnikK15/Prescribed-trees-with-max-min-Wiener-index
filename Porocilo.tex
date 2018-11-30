@@ -251,7 +251,9 @@ kar bi v teoriji po dovolj velikem številu korakov moralo pripeljati do zelo do
 \\
 \\
 Pri drevesih s fiksnim premerom je princip precej podoben tistemu, ki ga uporabimo pri drevesih z določeno maksimalno stopnjo vozlišč. Le, da smo tukaj iskali maksimalen Wienerjev indeks.
-Uporabljene funkcije so podobne, razlikujejo se po tem, da se ne osredotočajo na maksimalno stopnjo, temveč preverjajo premer grafa. Celoten algoritem si lahko pogledate na \href{https://github.com/HovnikK15/Prescribed-trees-with-max-min-Wiener-index/blob/master/Genetic%20algorithm%20for%20max%20Wiener%20index.sagews}{github} repozitoriju.
+Uporabljene funkcije so podobne, razlikujejo se po tem, da se ne osredotočajo na maksimalno stopnjo, temveč preverjajo premer grafa. 
+Poigrali smo se tudi z dodajanjem elitizma v funkcijo $nova\_generacija$. Na ta način v naslednjo generacijo osebkov pošljemo nekaj teh iz začetne generacije 
+z najboljšo lastnostjo in zagotovimo, da se najboljše drevo nikoli ne izgubi. Celoten algoritem si lahko pogledate na \href{https://github.com/HovnikK15/Prescribed-trees-with-max-min-Wiener-index/blob/master/Genetic%20algorithm%20for%20max%20Wiener%20index.sagews}{github} repozitoriju.
 \newpage
 \section{Zaključek}
 \
@@ -269,10 +271,13 @@ z največjo stopnjo 15, velikostjo začetne populacije 100, številom generacij 
 
 Za grafe, kjer smo iskali minimalni Wienerjev indeks, smo ugotovili, da to optimalno lastnost dosežejo bolj razvejani grafi. Že pri enostavnih algoritmih smo ugotovili, da bi pri določitvi le števila vozlišč imeli najmanjše indekse pri grafih zvezdaste oblike. Ker pa smo morali fiksirati tudi maksimalno stopnjo, pa graf ne more biti vedno zvezda. V teh primerih smo opazili, da je graf zelo razvejan. Seveda pa je razvejanost odvisna od maksimalne stopnje vozlišč (pri višjih maksimalnih stopnjah so grafi veliko bolj razvejani).
 \\
-Slabše deluje genetski algoritem za iskanje max Wienerjevega indeksa pri fiksnem premeru, za isti problem porabi približno 100-krat več časa.
-Menimo, da je to tako, ker se pri križanju dveh dreves z največjo stopnjo največja stopnja vedno ohrani, torej se mora ujeti le število vozlišč.
-Pri križanju dreves, kjer želimo, da se ohrani premer in število vozlišč, pa je oboje hkrati težko doseči, torej ista metoda križanja kot pri
-iskanju minimalnega indeksa ne deluje, prilagoditve pa vzamejo nekaj časa.
+Približno enako hitro deluje tudi genetski algoritem za iskanje največjega Wienerjevega indeksa. Za iskana drevesa smo ugotovili, da največje indekse dosežejo poti.
+Ker imamo podan največji dovoljeni premer, ne moremo vedno dobiti poti. Ima pa drevo z največjim Wienerjevim indeksom lastnost, da ni preveč razvejano, temveč osnovo grafa sestavlja pot, ki se nato razcepi, večinoma pa so vozlišča nabrana pri koncih osnovne poti.
+
+\begin{figure*}[ht]
+\centering
+\includegraphics[width=1\textwidth]{slika8}
+\end{figure*}
 
 
 
